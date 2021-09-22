@@ -37,6 +37,14 @@ func (c *Cli) Eval(id string, s string) (map[string]interface{}, error) {
 	json.Unmarshal(bs, &ret)
 	return ret, err
 }
+
+func (c *Cli) Wait(id string, s string, to int) (string, error) {
+	ret := ""
+	bs, err := c.HttpRawPost(fmt.Sprintf("/ipc/chrome/wait/%s?to=%d", id, to), []byte(s))
+	json.Unmarshal(bs, &ret)
+	return ret, err
+}
+
 func (c *Cli) Send(id string, m string, ps map[string]interface{}) (string, error) {
 	ret := ""
 	in := map[string]interface{}{
