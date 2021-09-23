@@ -11,12 +11,12 @@ type Cli struct {
 
 func (c *Cli) Recaptchav2(site string, data string) (string, error) {
 	ret := ""
-	err := c.HttpJsonGet(fmt.Sprintf("/ipc/anticaptcha/recaptchav2?site=?&data=?", site, data), &ret)
+	err := c.HttpJsonGet(fmt.Sprintf("/ipc/anticaptcha/recaptchav2?site=%s&data=%s", site, data), &ret)
 	return ret, err
 }
 
 func (c *Cli) Image2text(site string, data []byte) (string, error) {
-	bs, err := c.HttpRawPost(fmt.Sprintf("/ipc/anticaptcha/image2text?site=?", site), data)
+	bs, err := c.HttpRawPost(fmt.Sprintf("/ipc/anticaptcha/image2text?site=%s", site), data)
 	return string(bs), err
 }
 

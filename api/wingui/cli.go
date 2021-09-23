@@ -1,4 +1,4 @@
-package anticaptcha
+package wingui
 
 import (
 	"fmt"
