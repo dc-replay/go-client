@@ -1,7 +1,6 @@
 package anticaptcha
 
 import (
-	"fmt"
 	"github.com/dc-replay/go-client/api"
 )
 
@@ -9,15 +8,34 @@ type Cli struct {
 	*api.Cli
 }
 
+type Req struct {
+	Site string `json:"site"`
+	Data string `json:"data"`
+	Img  []byte `json:"img"`
+	To   int    `json:"to"`
+}
+
 func (c *Cli) Recaptchav2(site string, data string) (string, error) {
 	ret := ""
-	err := c.HttpJsonGet(fmt.Sprintf("/ipc/anticaptcha/recaptchav2?site=%s&data=%s", site, data), &ret)
+	req := &Req{
+		Site: site,
+		Data: data,
+		Img:  nil,
+		To:   300,
+	}
+	err := c.HttpJsonPost("/ipc/anticaptcha/recaptchav2", req, &ret)
 	return ret, err
 }
 
 func (c *Cli) Image2text(site string, data []byte) (string, error) {
-	bs, err := c.HttpRawPost(fmt.Sprintf("/ipc/anticaptcha/image2text?site=%s", site), data)
-	return string(bs), err
+	ret := ""
+	req := &Req{
+		Site: site,
+		Img:  data,
+		To:   300,
+	}
+	err := c.HttpJsonPost("/ipc/anticaptcha/image2text", req, &ret)
+	return ret, err
 }
 
 func NewCli() *Cli {
