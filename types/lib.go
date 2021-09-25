@@ -106,6 +106,7 @@ type ReplayDescriptor struct {
 	Hostname        string            `json:"hostname" yaml:"hostname"`
 	Ipcid           string            `json:"ipcid"`
 	Gui             bool              `json:"gui" yaml:"gui"`
+	Link            string            `json:"link" yaml:"link"` //This prop allows redirect of repos
 }
 
 type NotifyRequest struct {
