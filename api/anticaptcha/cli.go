@@ -5,7 +5,11 @@ import (
 )
 
 type Cli struct {
-	*api.Cli
+	cli *api.Cli
+}
+
+func (c *Cli) HttpCli() *api.Cli {
+	return c.cli
 }
 
 type Req struct {
@@ -23,7 +27,7 @@ func (c *Cli) Recaptchav2(site string, data string) (string, error) {
 		Img:  nil,
 		To:   300,
 	}
-	err := c.HttpJsonPost("/ipc/anticaptcha/recaptchav2", req, &ret)
+	err := c.cli.HttpJsonPost("/ipc/anticaptcha/recaptchav2", req, &ret)
 	return ret, err
 }
 
@@ -34,11 +38,11 @@ func (c *Cli) Image2text(site string, data []byte) (string, error) {
 		Img:  data,
 		To:   300,
 	}
-	err := c.HttpJsonPost("/ipc/anticaptcha/image2text", req, &ret)
+	err := c.cli.HttpJsonPost("/ipc/anticaptcha/image2text", req, &ret)
 	return ret, err
 }
 
 func NewCli() *Cli {
-	ret := &Cli{Cli: api.NewCli()}
+	ret := &Cli{cli: api.NewCli()}
 	return ret
 }

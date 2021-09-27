@@ -14,6 +14,10 @@ type Cli struct {
 	cli *api.Cli
 }
 
+func (c *Cli) HttpCli() *api.Cli {
+	return c.cli
+}
+
 type Req struct {
 	File    string `json:"file"`
 	Sheet   string `json:"sheet"`
