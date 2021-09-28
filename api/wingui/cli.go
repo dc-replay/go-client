@@ -24,6 +24,26 @@ func (c *Cli) ClipWrite(site string) error {
 	return err
 }
 
+func (c *Cli) MouseClick() error {
+	err := c.cli.HttpJsonGet(fmt.Sprintf("/ipc/wingui/mouse/click"), nil)
+	return err
+}
+func (c *Cli) MouseMove(x, y int) error {
+	err := c.cli.HttpJsonGet(fmt.Sprintf("/ipc/wingui/mouse/move?x=%d&y=%d", x, y), nil)
+	return err
+}
+func (c *Cli) MouseMoveRelative(x, y int) error {
+	err := c.cli.HttpJsonGet(fmt.Sprintf("/ipc/wingui/mouse/moverelative?x=%d&y=%d", x, y), nil)
+	return err
+}
+func (c *Cli) MouseClickRelative(x, y int) error {
+	err := c.cli.HttpJsonGet(fmt.Sprintf("/ipc/wingui/mouse/clickatrelative?x=%d&y=%d", x, y), nil)
+	return err
+}
+func (c *Cli) MouseClickAt(x, y int) error {
+	err := c.cli.HttpJsonGet(fmt.Sprintf("/ipc/wingui/mouse/clickat?x=%d&y=%d", x, y), nil)
+	return err
+}
 func (c *Cli) ScreenClick(f string) error {
 	err := c.cli.HttpJsonGet(fmt.Sprintf("/ipc/wingui/screen/click?f=%s", f), nil)
 	return err
@@ -43,13 +63,11 @@ func (c *Cli) ScreenWait(f string, m int) (ret map[string]interface{}, err error
 	err = c.cli.HttpJsonGet(fmt.Sprintf("/ipc/wingui/screen/wait?f=%s&m=%d", f, m), &ret)
 	return
 }
-
 func (c *Cli) ScreenWaitClick(f string, m int) (ret map[string]interface{}, err error) {
 	ret = make(map[string]interface{})
 	err = c.cli.HttpJsonGet(fmt.Sprintf("/ipc/wingui/screen/waitclick?f=%s&m=%d", f, m), &ret)
 	return
 }
-
 func (c *Cli) ScreenWaitClickCenter(f string, m int) (ret map[string]interface{}, err error) {
 	ret = make(map[string]interface{})
 	err = c.cli.HttpJsonGet(fmt.Sprintf("/ipc/wingui/screen/waitclickcenter?f=%s&m=%d", f, m), &ret)
